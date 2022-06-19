@@ -27,7 +27,8 @@ module.exports = {
   publicPath: '/',
   outputDir: 'dist',
   assetsDir: 'static',
-  lintOnSave: process.env.NODE_ENV === 'development',
+  // lintOnSave: process.env.NODE_ENV === 'development',
+  lintOnSave: false,
   productionSourceMap: false,
   devServer: {
     port: port,
@@ -36,7 +37,14 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    before: require('./mock/mock-server.js')
+    proxy: {
+      '/res': {
+        // /res/captcha  -> http://127.0.0.1:3001/res/captcha
+        target: 'http://127.0.0.1:3001'
+      }
+    }
+    // 发送请求使用mock-server处理
+    // before: require('./mock/mock-server.js')
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
@@ -87,7 +95,7 @@ module.exports = {
             .plugin('ScriptExtHtmlWebpackPlugin')
             .after('html')
             .use('script-ext-html-webpack-plugin', [{
-            // `runtime` must same as runtimeChunk name. default is `runtime`
+              // `runtime` must same as runtimeChunk name. default is `runtime`
               inline: /runtime\..*\.js$/
             }])
             .end()

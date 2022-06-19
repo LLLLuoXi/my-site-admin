@@ -1,136 +1,173 @@
 <template>
   <div class="login-container">
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
-
+    <el-form
+      ref="loginForm"
+      :model="loginForm"
+      :rules="loginRules"
+      class="login-form"
+      auto-complete="on"
+      label-position="left"
+    >
       <div class="title-container">
-        <h3 class="title">Login Form</h3>
+        <h3 class="title">个人空间后台系统</h3>
       </div>
-
-      <el-form-item prop="username">
+      <!-- 管理员账号 -->
+      <el-form-item prop="loginId">
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
         <el-input
-          ref="username"
-          v-model="loginForm.username"
-          placeholder="Username"
-          name="username"
+          ref="loginId"
+          v-model="loginForm.loginId"
+          placeholder="请输入管理员账号"
+          name="loginId"
           type="text"
           tabindex="1"
           auto-complete="on"
         />
       </el-form-item>
 
-      <el-form-item prop="password">
+      <el-form-item prop="loginPwd">
         <span class="svg-container">
           <svg-icon icon-class="password" />
         </span>
         <el-input
           :key="passwordType"
           ref="password"
-          v-model="loginForm.password"
+          v-model="loginForm.loginPwd"
           :type="passwordType"
-          placeholder="Password"
+          placeholder="请输入管理员密码"
           name="password"
           tabindex="2"
           auto-complete="on"
           @keyup.enter.native="handleLogin"
         />
         <span class="show-pwd" @click="showPwd">
-          <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
+          <svg-icon
+            :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"
+          />
         </span>
       </el-form-item>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
-
-      <div class="tips">
-        <span style="margin-right:20px;">username: admin</span>
-        <span> password: any</span>
+      <!-- 验证码 -->
+      <div class="captcha-container">
+        <el-form-item prop="captcha" class="captchaInputer">
+          <span class="svg-container">
+            <svg-icon icon-class="nested" />
+          </span>
+          <el-input
+            ref="captcha"
+            v-model="loginForm.captcha"
+            placeholder="请输入验证码"
+            name="captcha"
+            type="text"
+            tabindex="3"
+            auto-complete="on"
+          />
+        </el-form-item>
+        <div class="captchaImg" @click="getCaptchaFunc" v-html="svg"></div>
       </div>
 
+      <!-- 7天内免登录 -->
+      <div style="margin-bottom: 15px">
+        <el-checkbox v-model="loginForm.checked">7天内免登录</el-checkbox>
+      </div>
+      <el-button
+        :loading="loading"
+        type="primary"
+        style="width: 100%; margin-bottom: 30px"
+        @click.native.prevent="handleLogin"
+        >登录</el-button
+      >
     </el-form>
   </div>
 </template>
 
 <script>
-import { validUsername } from '@/utils/validate'
+import { getCaptcha } from "@/api/captcha";
 
 export default {
-  name: 'Login',
+  name: "Login",
   data() {
-    const validateUsername = (rule, value, callback) => {
-      if (!validUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
-      } else {
-        callback()
-      }
-    }
-    const validatePassword = (rule, value, callback) => {
-      if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
-      } else {
-        callback()
-      }
-    }
     return {
       loginForm: {
-        username: 'admin',
-        password: '111111'
+        username: "admin",
+        password: "111111",
       },
       loginRules: {
-        username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-        password: [{ required: true, trigger: 'blur', validator: validatePassword }]
+        loginId: [
+          { required: true, trigger: "blur", message: "请输入管理员账号" },
+        ],
+        loginPwd: [
+          { required: true, trigger: "blur", message: "请输入管理员密码" },
+        ],
+        captcha: [{ required: true, trigger: "blur", message: "请输入验证码" }],
       },
       loading: false,
-      passwordType: 'password',
-      redirect: undefined
-    }
+      passwordType: "password",
+      redirect: undefined,
+      svg: "",
+    };
   },
   watch: {
     $route: {
-      handler: function(route) {
-        this.redirect = route.query && route.query.redirect
+      handler: function (route) {
+        this.redirect = route.query && route.query.redirect;
       },
-      immediate: true
-    }
+      immediate: true,
+    },
+  },
+  created() {
+    // 获取验证码
+    this.getCaptchaFunc();
   },
   methods: {
+    getCaptchaFunc() {
+      getCaptcha().then((res) => {
+        this.svg = res;
+      });
+    },
+
     showPwd() {
-      if (this.passwordType === 'password') {
-        this.passwordType = ''
+      if (this.passwordType === "password") {
+        this.passwordType = "";
       } else {
-        this.passwordType = 'password'
+        this.passwordType = "password";
       }
       this.$nextTick(() => {
-        this.$refs.password.focus()
-      })
+        this.$refs.password.focus();
+      });
     },
     handleLogin() {
-      this.$refs.loginForm.validate(valid => {
+      this.$refs.loginForm.validate((valid) => {
         if (valid) {
-          this.loading = true
-          this.$store.dispatch('user/login', this.loginForm).then(() => {
-            this.$router.push({ path: this.redirect || '/' })
-            this.loading = false
-          }).catch(() => {
-            this.loading = false
-          })
+          // 表单正则验证通过
+          this.loading = true;
+          this.$store
+            .dispatch("user/login", this.loginForm)
+            .then(() => {
+              this.$router.push({ path: this.redirect || "/" });
+              this.loading = false;
+            })
+            .catch(() => {
+              this.loading = false;
+            });
         } else {
-          console.log('error submit!!')
-          return false
+          console.log("error submit!!");
+          return false;
         }
-      })
-    }
-  }
-}
+      });
+    },
+  },
+};
 </script>
 
 <style lang="scss">
 /* 修复input 背景不协调 和光标变色 */
 /* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
 
-$bg:#283443;
-$light_gray:#fff;
+$bg: #283443;
+$light_gray: #fff;
 $cursor: #fff;
 
 @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
@@ -173,9 +210,9 @@ $cursor: #fff;
 </style>
 
 <style lang="scss" scoped>
-$bg:#2d3a4b;
-$dark_gray:#889aa4;
-$light_gray:#eee;
+$bg: #2d3a4b;
+$dark_gray: #889aa4;
+$light_gray: #eee;
 
 .login-container {
   min-height: 100%;
@@ -233,5 +270,19 @@ $light_gray:#eee;
     cursor: pointer;
     user-select: none;
   }
+}
+
+.captchaInputer {
+  width: 70%;
+}
+.captcha-container {
+  display: flex;
+}
+
+.captchaImg {
+  width: 150px;
+  height: 50px;
+  // border: 1px solid;
+  margin-left: 5px;
 }
 </style>

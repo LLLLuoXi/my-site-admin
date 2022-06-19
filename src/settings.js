@@ -1,6 +1,13 @@
+/*
+ * @Author: luoxi
+ * @LastEditTime: 2022-06-17 00:27:28
+ * @LastEditors: your name
+ * @Description:
+ */
+
 module.exports = {
 
-  title: 'Vue Admin Template',
+  title: '博客后台管理系统',
 
   /**
    * @type {boolean} true | false
