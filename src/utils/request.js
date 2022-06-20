@@ -1,6 +1,6 @@
 /*
  * @Author: luoxi
- * @LastEditTime: 2022-06-19 22:36:43
+ * @LastEditTime: 2022-06-20 22:06:44
  * @LastEditors: your name
  * @Description: 
  */
@@ -21,11 +21,9 @@ service.interceptors.request.use(
   config => {
     // do something before request is sent
 
-    if (store.getters.token) {
-      // let each request carry token
-      // ['X-Token'] is a custom headers key
-      // please modify it according to the actual situation
-      config.headers['X-Token'] = getToken()
+    const token = localStorage.getItem('adminToken')
+    if (token) {
+      config.headers['Authorization'] = "Bearer " + token
     }
     return config
   },
@@ -49,6 +47,11 @@ service.interceptors.response.use(
    * You can also judge the status by HTTP Status Code
    */
   response => {
+    if (response.headers.authentication) {
+      // 响应头如果这个字段，需要存到localstorage，之后的请求都需要吧token带到服务器
+      localStorage.adminToken = response.headers.authentication
+
+    }
     const res = response.data
     return res
 

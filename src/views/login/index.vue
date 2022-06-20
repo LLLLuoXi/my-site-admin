@@ -143,14 +143,25 @@ export default {
         if (valid) {
           // 表单正则验证通过
           this.loading = true;
+          if (this.loginForm.checked) {
+            this.loginForm.remember = 7;
+          }
           this.$store
             .dispatch("user/login", this.loginForm)
             .then(() => {
               this.$router.push({ path: this.redirect || "/" });
               this.loading = false;
             })
-            .catch(() => {
+            .catch((err) => {
+              if (typeof err === "string") {
+                // 说明验证码错误
+                this.$message.error("验证码错误");
+              } else {
+                this.$message.error("账号密码错误");
+              }
+              this.getCaptchaFunc();
               this.loading = false;
+              this.loginForm.captcha = "";
             });
         } else {
           console.log("error submit!!");

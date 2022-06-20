@@ -41,6 +41,10 @@ module.exports = {
       '/res': {
         // /res/captcha  -> http://127.0.0.1:3001/res/captcha
         target: 'http://127.0.0.1:3001'
+      },
+      '/api': {
+        // /res/captcha  -> http://127.0.0.1:3001/res/captcha
+        target: 'http://127.0.0.1:3001'
       }
     }
     // 发送请求使用mock-server处理

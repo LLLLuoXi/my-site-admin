@@ -1,18 +1,25 @@
+/*
+ * @Author: luoxi
+ * @LastEditTime: 2022-06-20 22:05:23
+ * @LastEditors: your name
+ * @Description: 
+ */
+
 import request from '@/utils/request'
 
-export function login(data) {
+export function loginApi(data) {
   return request({
-    url: '/vue-admin-template/user/login',
+    url: '/api/admin/login',
     method: 'post',
     data
   })
 }
 
-export function getInfo(token) {
+// 恢复登录
+export function getInfo() {
   return request({
-    url: '/vue-admin-template/user/info',
+    url: '/api/admin/whoami',
     method: 'get',
-    params: { token }
   })
 }
 
