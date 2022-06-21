@@ -1,20 +1,27 @@
+<!--
+ * @Author: luoxi
+ * @LastEditTime: 2022-06-20 23:26:12
+ * @LastEditors: your name
+ * @Description: 
+-->
+
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">name: {{ name }}</div>
+    <div class="dashboard-text">欢迎使用个人博客后台</div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
 
 export default {
-  name: 'Dashboard',
-  computed: {
-    ...mapGetters([
-      'name'
-    ])
-  }
-}
+  name: "Dashboard",
+  // computed: {
+  //   ...mapGetters([
+  //     'name'
+  //   ])
+  // }
+};
 </script>
 
 <style lang="scss" scoped>
