@@ -1,6 +1,6 @@
 <!--
  * @Author: luoxi
- * @LastEditTime: 2022-06-21 22:54:55
+ * @LastEditTime: 2022-06-22 00:18:20
  * @LastEditors: your name
  * @Description: 
 -->
@@ -67,8 +67,8 @@
         width="150"
         align="center"
       >
-        <template slot-scope="scope" v-if="scope.row.category">
-          {{ scope.row.category.name }}
+        <template slot-scope="scope">
+          {{ scope.row.category === null ? "未分类" : scope.row.category.name }}
         </template>
       </el-table-column>
       <el-table-column
