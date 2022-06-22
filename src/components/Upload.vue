@@ -1,6 +1,6 @@
 <!--
  * @Author: luoxi
- * @LastEditTime: 2022-06-21 01:04:25
+ * @LastEditTime: 2022-06-22 01:20:15
  * @LastEditors: your name
  * @Description: 
 -->
@@ -60,8 +60,6 @@ export default {
     font-weight: 100;
   }
   .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
     cursor: pointer;
     position: relative;
     overflow: hidden;
@@ -76,6 +74,8 @@ export default {
     height: 178px;
     line-height: 178px;
     text-align: center;
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
   }
   .avatar {
     width: 178px;

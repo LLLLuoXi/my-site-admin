@@ -1,6 +1,6 @@
 <!--
  * @Author: luoxi
- * @LastEditTime: 2022-06-22 00:18:20
+ * @LastEditTime: 2022-06-22 14:23:21
  * @LastEditors: your name
  * @Description: 
 -->
@@ -96,7 +96,7 @@
               icon="el-icon-edit"
               circle
               size="mini"
-              @click="editBannerHandle(scope.row)"
+              @click="editBlogHandle(scope.row)"
             ></el-button>
           </el-tooltip>
           <el-tooltip
@@ -219,6 +219,11 @@ export default {
     },
     nextClickHandle() {
       this.currentPage += 1;
+    },
+
+    // 编辑文章
+    editBlogHandle(blogInfo) {
+      this.$router.push(`/editBlog/${blogInfo.id}`);
     },
   },
 };

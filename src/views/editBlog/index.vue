@@ -1,12 +1,12 @@
 <!--
  * @Author: luoxi
- * @LastEditTime: 2022-06-22 15:19:21
+ * @LastEditTime: 2022-06-22 15:18:25
  * @LastEditors: your name
- * @Description: 
+ * @Description: 修改文章
 -->
 <template>
   <div>
-    <EditArticle mode="add" />
+    <EditArticle mode="edit" />
   </div>
 </template>
 
