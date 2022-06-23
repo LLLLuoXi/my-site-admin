@@ -1,6 +1,6 @@
 <!--
  * @Author: luoxi
- * @LastEditTime: 2022-06-22 14:23:21
+ * @LastEditTime: 2022-06-24 00:26:49
  * @LastEditors: your name
  * @Description: 
 -->
@@ -125,6 +125,7 @@
       :page-sizes="[5, 10, 20]"
       layout="prev, pager, next, total,->, sizes, jumper"
       :total="count"
+      :current-page.sync="pagerCurrentPage"
       @size-change="sizeChangeHandle"
       @current-change="currentChangeHandle"
       @prev-click="prevClickHandle"
