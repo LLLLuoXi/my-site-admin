@@ -77,24 +77,45 @@ export const constantRoutes = [
       }
     ]
   },
+  // {
+  //   path: '/project',
+  //   component: Layout,
+  //   redirect: '/project',
+  //   name: 'Projects',
+  //   meta: { title: '项目管理', icon: 'el-icon-s-help' },
+  //   children: [
+  //     {
+  //       path: '/projects',
+  //       name: 'Projects',
+  //       component: () => import('@/views/projects/index'),
+  //       meta: { title: '项目列表', icon: 'table', auth: true }
+  //     },
+  //     {
+  //       path: '/addProject',
+  //       name: 'AddProject',
+  //       component: () => import('@/views/addProject/index'),
+  //       meta: { title: '添加项目', icon: 'el-icon-document-add', auth: true }
+  //     },
+  //   ]
+  // },
   {
-    path: '/demo',
+    path: '/projects',
     component: Layout,
-    redirect: '/demo',
-    name: 'Demo',
-    meta: { title: '项目管理', icon: 'el-icon-s-help' },
+    redirect: '/projects',
+    name: 'Projects',
+    meta: { title: '项目管理', icon: 'el-icon-suitcase' },
     children: [
       {
-        path: '/demoList',
-        name: 'DemoList',
-        component: () => import('@/views/demoList/index'),
-        meta: { title: '项目列表', icon: 'table', auth: true }
+        path: '/projectsList',
+        name: 'ProjectsList',
+        component: () => import('@/views/projects/index'),
+        meta: { title: '项目列表', icon: 'el-icon-notebook-1', auth: true }
       },
       {
-        path: '/addDemo',
-        name: 'AddDemo',
-        component: () => import('@/views/addDemo/index'),
-        meta: { title: '添加项目', icon: 'el-icon-document-add', auth: true }
+        path: '/addProject',
+        name: 'AddProject',
+        component: () => import('@/views/addProject/index'),
+        meta: { title: '添加项目', icon: 'el-icon-link', auth: true }
       },
     ]
   },

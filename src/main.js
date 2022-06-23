@@ -1,6 +1,6 @@
 /*
  * @Author: luoxi
- * @LastEditTime: 2022-06-20 22:35:30
+ * @LastEditTime: 2022-06-23 23:15:14
  * @LastEditors: your name
  * @Description:
  */
@@ -13,6 +13,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import locale from 'element-ui/lib/locale/lang/en' // lang i18n
 
 import '@/styles/index.scss' // global css
+import '@/assets/icon/iconfont.css'
 
 import App from './App'
 import store from './store'
