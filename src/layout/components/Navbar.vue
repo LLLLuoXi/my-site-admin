@@ -16,7 +16,9 @@
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
           <router-link to="/">
-            <el-dropdown-item> 个人中心 </el-dropdown-item>
+            <el-dropdown-item @click.native="goToPersonalSetting">
+              个人中心
+            </el-dropdown-item>
           </router-link>
           <el-dropdown-item divided @click.native="logout">
             <span style="display: block">退出登录</span>
@@ -47,6 +49,10 @@ export default {
     async logout() {
       await this.$store.dispatch("user/logout");
       this.$router.push(`/login?redirect=${this.$route.fullPath}`);
+    },
+    goToPersonalSetting() {
+      console.log("11212");
+      this.$router.push({ path: "personalSetting" });
     },
   },
 };

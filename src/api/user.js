@@ -1,6 +1,6 @@
 /*
  * @Author: luoxi
- * @LastEditTime: 2022-06-20 22:05:23
+ * @LastEditTime: 2022-06-24 21:22:05
  * @LastEditors: your name
  * @Description: 
  */
@@ -27,5 +27,15 @@ export function logout() {
   return request({
     url: '/vue-admin-template/user/logout',
     method: 'post'
+  })
+}
+
+
+// 修改用户
+export function setUser(data) {
+  return request({
+    url: '/api/admin',
+    method: 'PUT',
+    data
   })
 }

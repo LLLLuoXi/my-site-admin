@@ -167,6 +167,20 @@ export const constantRoutes = [
       }
     ]
   },
+  {
+    path: '/personalSetting',
+    component: Layout,
+    hidden: true,
+    meta: { children: ['/personalSetting'] },
+    children: [
+      {
+        path: '/personalSetting',
+        name: 'PersonalSetting',
+        component: () => import('@/views/personalSetting/index'),
+        meta: { title: '个人中心', icon: 'el-icon-document-copy', auth: true }
+      }
+    ]
+  },
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
