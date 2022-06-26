@@ -7,7 +7,7 @@
     </div>
     <!-- 文章编辑 -->
     <div class="block">文章编辑</div>
-    <Editor
+    <editor
       ref="toastuiEditor"
       :initialValue="form.editorText"
       height="600px"
@@ -50,13 +50,17 @@
 </template>
 
 <script>
-import "@toast-ui/editor/dist/toastui-editor.css";
-import { Editor } from "@toast-ui/vue-editor";
-// import "highlight.js/styles/github.css";
 import "prismjs/themes/prism.css";
 import "@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css";
 
+import Prism from "prismjs";
+import "prismjs/components/prism-clojure.js";
+
+import "@toast-ui/editor/dist/toastui-editor.css";
+import { Editor } from "@toast-ui/vue-editor";
 import codeSyntaxHighlight from "@toast-ui/editor-plugin-code-syntax-highlight";
+import "@toast-ui/editor/dist/i18n/zh-cn";
+
 import Upload from "@/components/Upload.vue";
 import { getBlogType } from "@/api/blogType";
 import { addBlog, editBlog, findOneBlog } from "@/api/blog";
@@ -75,7 +79,8 @@ export default {
       blogType: [], // 博客分类
       imageUrl: "", // 图片在服务器上面的地址
       editorOptions: {
-        plugins: [codeSyntaxHighlight],
+        language: "zh-CN",
+        plugins: [[codeSyntaxHighlight, { highlighter: Prism }]],
       },
       btnContent: "发布文章",
     };
